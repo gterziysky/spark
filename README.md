@@ -10,5 +10,4 @@ $ wget https://github.com/gterziysky/spark/blob/master/install_jupyter
 $ chmod +x install_jupyter
 $ ./install_jupyter
 
-The installation might take a while. After it is done do
-
+The installation might take a while. After it is done fire up a browser and connect to http://[ip addresses of your amazon system]:8192/. Now you are all set to run pyspark.
