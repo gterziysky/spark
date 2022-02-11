@@ -49,6 +49,7 @@ jupyter notebook --no-browser --port 1234
 Open up a secure tunnel to the notebook server on your local machine:
 
 ```shell
+# if you do not wish to start the ssh in the background, simply remove the -f option
 ssh -i ~/.ssh/id_rsa -fNL 1234:localhost:1234 user@notebook_server
 ```
 
