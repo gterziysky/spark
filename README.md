@@ -17,7 +17,7 @@ The installation might take a while. After it is done fire up a browser and conn
 Possibly useful SO answer w.r.t. Spark env vars [How to import pyspark in anaconda](https://stackoverflow.com/questions/33814005/how-to-import-pyspark-in-anaconda#answer-33814715).
 
 ```shell
-conda create --name spark --channel conda-forge -y python=3.8 py4j numpy pandas pyarrow openjdk=8
+conda create --name spark --channel conda-forge -y python=3.8 py4j numpy pandas pyarrow openjdk=8 notebook
 ```
 
 The current version of pyspark available on conda-forge for linux x64 is 2.4.0.
@@ -32,4 +32,34 @@ or download it from [spark.apache.org](spark.apache.org) and set the env variabl
 ```shell
 export SPARK_HOME="/home/successful/spark-3.2.1-bin-hadoop3.2"
 export PATH="$SPARK_HOME/bin:$PATH"
+```
+
+To remove the conda env simply:
+
+```shell
+conda env remove -n spark
+```
+
+To run a jupyter notebook on the server running spark do:
+
+```shell
+jupyter notebook --no-browser --port 1234
+```
+
+Open up a secure tunnel to the notebook server on your local machine:
+
+```shell
+ssh -i ~/.ssh/id_rsa -fNL 1234:localhost:1234 user@notebook_server
+```
+
+Then, go to your preferred browser of choice and type in localhost:1234 to open up jupyter notebook on the server (input the session token you got when starting up the jupyter notebook process on the server).
+
+Finally, from within jupyter notebook, initiate a spark context by:
+
+```python
+import pyspark as ps
+from pyspark import SparkContext
+from pyspark import SparkConf
+
+sc = SparkContext.getOrCreate(SparkConf().setMaster("local[*]"))
 ```
