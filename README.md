@@ -64,3 +64,27 @@ from pyspark import SparkConf
 
 sc = SparkContext.getOrCreate(SparkConf().setMaster("local[*]"))
 ```
+
+## Logging level
+
+Navigate to the spark config folder:
+
+```shell
+# Note that the path to where you've installed spark may differ
+cd ~/spark-3.2.1-bin-hadoop3.2/conf/
+```
+
+Make a copy of the log4j.properties.template file:
+```shell
+cp log4j.properties.template log4j.properties
+```
+
+Open the newly created `log4j.properties` file and set the logging level for the following properties from `INFO` or `WARN` to `ERROR`:
+
+```shell
+log4j.rootCategory
+log4j.logger.org.apache.spark.repl.Main
+log4j.logger.org.sparkproject.jetty
+log4j.logger.org.apache.spark.repl.SparkIMain$exprTyper
+log4j.logger.org.apache.spark.repl.SparkILoop$SparkILoopInterpreter
+```
