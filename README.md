@@ -89,7 +89,7 @@ log4j.logger.org.apache.spark.repl.SparkIMain$exprTyper
 log4j.logger.org.apache.spark.repl.SparkILoop$SparkILoopInterpreter
 ```
 
-## Send 
+## Send send your application code to a cluster (be it standalone, Mesos or YARN)
 
 The following code is from the "Running Production Applications" section of "Chapter 3. A tour of Spark's toolset" from the [Spark: The Definitive Guide: Big Data Processing Made Simple](https://analyticsdata24.files.wordpress.com/2020/02/spark-the-definitive-guide40www.bigdatabugs.com_.pdf) book:
 
@@ -98,4 +98,5 @@ The following code is from the "Running Production Applications" section of "Cha
 ./bin/spark-submit \
   --master local \
   ./examples/src/main/python/pi.py 10
+# spark-submit --master local $SPARK_HOME/examples/src/main/python/pi.py 10
 ```
