@@ -37,3 +37,24 @@ RDDs are immutable (this is just the lineage, not the data driving it)
 
 ## Data loading
 
+Input data types:
+- Hadoop - hdf://
+- S3 - s3://
+- DBs - like Apache Cassandra (which is a distributed NoSQL DB)
+- Memory
+- Apache Parquet (pronounced as 'parkei') files
+- Apache Avro
+- ...
+
+Methods:
+
+1. Memory loading
+- sc.parallelize(seq, numSlices), if ran locally, numSlices defaults to number of cores
+- sc.makeRDD() - 
+- sc.range()
+1. File loading
+- sc.wholeTextFiles(path)
+- sc.sequenceFile()
+- sc.hadoopFile()
+- sc.newAPIHadoopFile() - for newAPI methods
+- sc.hadoopRDD()

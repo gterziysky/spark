@@ -32,6 +32,8 @@ or download it from [spark.apache.org](spark.apache.org) and set the env variabl
 ```shell
 export SPARK_HOME="/home/successful/spark-3.2.1-bin-hadoop3.2"
 export PATH="$SPARK_HOME/bin:$PATH"
+# on Windows it may be a good idea to set also the following:
+# JAVA_HOME, HADOOP_HOME and PYSPARK_PYTHON
 ```
 
 To remove the conda env simply:
@@ -62,8 +64,24 @@ import pyspark as ps
 from pyspark import SparkContext
 from pyspark import SparkConf
 
+# Create a SparkSession in Python
+spark = SparkSession.builder\
+.master("local[*]")\
+.appName("MyApp")\
+.getOrCreate()
+
+# Obtain a SparkContext instance to communicate with Spark's lower level APIs such as RDD
+sc = spark.sparkContext.getOrCreate()
+
+# Alternatively, one can directly obtain a SparkContext instance without explicitly creating a SparkSession first by:
 sc = SparkContext.getOrCreate(SparkConf().setMaster("local[*]"))
+
 ```
+
+For more information, see here [Installing Apache Spark and Python](https://sundog-education.com/spark-python/).
+
+For more information on creating a SparkSession and SparkContext, see section "The Life Cycle of a Spark Application" in the [Spark: The Definitive Guide: Big Data Processing Made Simple](https://www.amazon.com/Spark-Definitive-Guide-Processing-Simple/dp/1491912219) book.
+
 
 ## Logging level
 
@@ -98,5 +116,20 @@ The following code is from the "Running Production Applications" section of "Cha
 ./bin/spark-submit \
   --master local \
   ./examples/src/main/python/pi.py 10
-# spark-submit --master local $SPARK_HOME/examples/src/main/python/pi.py 10
+# the --master option specifies the address of the master node
+# local stands for the local machine
+
+# use $SPARK_HOME instead of a hardcoded path 
+spark-submit --master local $SPARK_HOME/examples/src/main/python/pi.py 10
+
+# "local[*]" means we want to use all cores
+spark-submit --master "local[*]" $SPARK_HOME/examples/src/main/python/pi.py 10
 ```
+
+## Data Science on Apache Spark
+
+Use [koalas](https://koalas.readthedocs.io/en/latest/index.html) which is like a distributed alternative to the [pandas](https://pandas.pydata.org/) library. It provides the pandas API on Apache Spark.
+
+Here is an article on how to do a distributed GridSearchCV directly by the team who created Spark: [Auto-scaling scikit-learn with Apache Spark](https://databricks.com/blog/2016/02/08/auto-scaling-scikit-learn-with-apache-spark.html).
+
+A great addition to [sklean](https://scikit-learn.org/stable/index.html) which distributes the workload across a cluster of worker nodes is the [spark-sklearn](https://spark-packages.org/package/databricks/spark-sklearn) package.
