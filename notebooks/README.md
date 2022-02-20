@@ -1,11 +1,15 @@
-## spark useful methods:
+Spark useful methods:
+
+```python
 myRange = spark.range(1000).toDF("number")
 divisBy2 = myRange.where("number % 2 = 0")
 ## action
 divisBy2.count()
+```
 
+An example
 
-## an example
+```python
 flightData2015 = spark\
 .read\
 .option("inferSchema", "true")\
@@ -17,7 +21,7 @@ flightData2015.take(3)
 ## by default spark outputs 200 shuffle partitions
 spark.conf.set("spark.sql.shuffle.partitions", "5")
 flightData2015.sort("count").take(2)
-
+```
 
 ## RDDs
 
