@@ -84,6 +84,17 @@ Methods:
 ### Map example
 ```python
 rdd = sc.parallelize([1, 2, 3, 4])
-rdd.map(lambda x: x * x)
-rdd.collect()
+rdd.map(lambda x: x * x).collect()
+# yields [1, 4, 9, 16]
 ```
+
+## RDD Actions
+
+- collect
+- count
+- countByValue
+- take
+- top
+- reduce
+- ...
+
