@@ -64,6 +64,9 @@ import pyspark as ps
 from pyspark import SparkContext
 from pyspark import SparkConf
 
+# Obtain a SparkContext
+
+# Method 1
 # Create a SparkSession in Python
 spark = SparkSession.builder\
 .master("local[*]")\
@@ -73,9 +76,12 @@ spark = SparkSession.builder\
 # Obtain a SparkContext instance to communicate with Spark's lower level APIs such as RDD
 sc = spark.sparkContext.getOrCreate()
 
+# Method 2
 # Alternatively, one can directly obtain a SparkContext instance without explicitly creating a SparkSession first by:
 sc = SparkContext.getOrCreate(SparkConf().setMaster("local[*]"))
-
+# Method 3 (same as Method 2)
+conf = SparkConf().setMaster("local").setAppName("MyApp")
+sc = SparkContext(conf = conf)
 ```
 
 For more information, see here [Installing Apache Spark and Python](https://sundog-education.com/spark-python/).
